@@ -86,6 +86,7 @@ def test_cnn_params_score_1():
 
 
 def test_BetterCNN_score_5():
+    ### Check for the configs
     original_config = {
         "num_workers": 4,
         "batch_size": 128,
@@ -99,6 +100,7 @@ def test_BetterCNN_score_5():
     for key, value in original_config.items():
         assert config[key] == value, "You are NOT allowed to edit `config` or `main_BetterCNN()` except for 'learning_rate' and 'num_epochs'" 
 
+    ### Check for the source code
     source_code = inspect.getsource(BetterCNN)
     assert "torchvision.models" not in source_code, "You are NOT allowed to use torchvision.models"
 
@@ -107,11 +109,30 @@ def test_BetterCNN_score_5():
     for forbidden in ["import torchvision.models", "from torchvision.models import", "from torchvision import models"]:
         assert not any([code.startswith(forbidden) for code in code_lines]), "You are NOT allowed to use torchvision.models"
 
+    ### Check for the modules
+    ALLOWED_MODULES = {
+        nn.Conv2d,
+        nn.MaxPool2d,
+        nn.ReLU,
+        nn.Linear,
+        nn.Flatten,
+        nn.Sequential,
+    }
+
+    model = BetterCNN(out_dim=10)
+    for name, module in model.named_modules():
+        # print(f"name: '{name}'", type(module))
+        if name == "":  # skip the root module
+            continue
+        assert type(module) in ALLOWED_MODULES, f"Disallowed nn.Module used: {type(module).__name__} in '{name}'"
+    
+    ### Check for the performance
     config["mode"] = "eval"
     test_accuracy = main_BetterCNN(config)
     assert test_accuracy > 70, f"You should achieve test accuracy > 70% in BetterCNN model"
 
-    # model = BetterCNN(out_dim=10)
+
+    ### Check for the epochs
     # device = config["device"]
     # model.to(device)
     # optimizer = torch.optim.SGD(model.parameters(), lr = config["learning_rate"])  # Dummy optimizer to satisfy checkpoint loader
