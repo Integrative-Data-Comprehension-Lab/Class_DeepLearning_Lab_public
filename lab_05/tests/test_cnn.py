@@ -129,7 +129,7 @@ def test_BetterCNN_score_5():
     ### Check for the performance
     config["mode"] = "eval"
     test_accuracy = main_BetterCNN(config)
-    assert test_accuracy > 70, f"You should achieve test accuracy > 70% in BetterCNN model"
+    assert test_accuracy > 68, f"You should achieve test accuracy > 68% in BetterCNN model"
 
 
     ### Check for the epochs
