@@ -2,11 +2,17 @@
 
 ## 실험 준비
 
-1. cloning public lab materials
-```bash
-cd ~/
-git clone https://github.com/Integrative-Data-Comprehension-Lab/Class_DeepLearning_Lab_public.git
-```
+1. Clone or update the public lab materials
+    - If cloning for the first time:
+    ```bash
+    cd ~/
+    git clone https://github.com/Integrative-Data-Comprehension-Lab/Class_DeepLearning_Lab_public.git
+    ```
+    - If you already cloned before:
+    ```bash
+    cd ~/Class_DeepLearning_Lab_public
+    git pull
+    ```
 
 2. cloning your private repository
 ```bash
@@ -26,7 +32,10 @@ cp -r Class_DeepLearning_Lab_public/lab_XX YOUR_PRIVATE_REPOSITORY_NAME/
 ```bash
 cd ~/YOUR_PRIVATE_REPOSITORY_NAME
 git status
+
 git add lab_XX
+git status
+
 git commit -m "before lab_XX"
 git push
 ```
@@ -58,7 +67,13 @@ pytest
 
 ```bash
 cd ~/YOUR_PRIVATE_REPOSITORY_NAME
+git status
+
 git add lab_XX
+git status
+
 git commit -m "finished lab_XX"
 git push
+
+git log --oneline
 ```
